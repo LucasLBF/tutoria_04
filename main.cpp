@@ -15,6 +15,5 @@ int main() {
     processes.push_back(createProcess(arrivalTime, duration));
   }
 
-  cout << "Starting RR" << endl;
   roundRobin(processes, timeQuantum);
 }
