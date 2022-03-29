@@ -1,21 +1,36 @@
+####################Variables####################
+
 CC=g++
-FLAGS=-c -o
+CPP_FLAGS:=--std=c++11
+INCLUDE:=
+DEFINES:=
 
-all: process roundrobin bin
+FLAGS=$(CPP_FLAGS) $(INCLUDE) $(DEFINES)
 
-process: process.cpp
-	$(CC) $< $(FLAGS) $@
+SRC=$(wildcard *.cpp)
+OBJ=$(subst .cpp,.o,$(SRC))
 
-roundrobin: roundRobin.cpp
-	$(CC) $< $(FLAGS) $@
+BIN=prog
 
-bin: main.cpp
-	$(CC) $< $(FLAGS) $@
+#####################Targets####################
 
-.PHONY: run clean
+all: $(BIN)
 
-run: 
-	./bin
+$(BIN): $(OBJ)
+	$(CC) $^ -o $@ $(FLAGS)
+
+%.o: %.cpp
+	$(CC) -c $< -o $@ $(FLAGS)
+
+####################PHONY Targets###############
+
+.PHONY: clean run
 
 clean:
-	rm bin process roundrobin
+	rm *.o $(BIN) || true
+
+run: $(BIN)
+	./$(BIN)
+
+
+

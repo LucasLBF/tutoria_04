@@ -1,3 +1,4 @@
-bin
-process
-roundrobin
+main.o
+process.o
+roundRobin.o
+prog
